@@ -77,26 +77,24 @@ def tmialo():
         if positionOfCheckers[movePlaceY, movePlaceX] == 0:
 
             # making sure that you are moving up and left
-            if movePieceX - movePlaceX == 1 & movePieceY - movePlaceY == 1:
+            if movePieceX - movePlaceX == 1 and movePieceY - movePlaceY == 1:
 
                 updatePieceReg(movePieceX, movePieceY, movePlaceX, movePlaceY, 1)
 
             # making sure that you are moving up and right
-            elif movePlaceX - movePieceX == 1 & movePieceY - movePlaceY == 1:
+            elif movePlaceX - movePieceX == 1 and movePieceY - movePlaceY == 1:
 
                 updatePieceReg(movePieceX, movePieceY, movePlaceX, movePlaceY, 1)
 
         # else if the target piece is holding an enemy piece
         elif positionOfCheckers[movePlaceY, movePlaceX] == 2:
             # making sure its moving in a legal direction, up and left
-            if movePieceX - movePlaceX == 1 & movePieceY - movePlaceY == 1:
-              if positionOfCheckers[movePlaceY - 1, movePlaceX - 1] == 0:
+            if movePieceX - movePlaceX == 1 & movePieceY - movePlaceY == 1 and positionOfCheckers[movePlaceY - 1, movePlaceX - 1] == 0:
                 updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 1, -1, -1)
 
             # making sure its moving in a legal direction, up and right
-            elif movePlaceX - movePieceX == 1 & movePieceY - movePlaceY == 1:   
-              if positionOfCheckers[movePlaceY - 1, movePlaceX + 1] == 0:
-                print('graeson = brain damage 2')
+            elif movePlaceX - movePieceX == 1 & movePieceY - movePlaceY == 1 and positionOfCheckers[movePlaceY - 1, movePlaceX + 1] == 0:   
+
                 updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 1, 1, -1)
               
     elif positionOfCheckers[movePieceY, movePieceX] == 3:
@@ -145,15 +143,12 @@ def tmialx():
         elif positionOfCheckers[movePlaceY, movePlaceX] == 1 or positionOfCheckers[movePlaceY, movePlaceX] == 3:
 
             # making sure its moving in a legal direction
-            if movePieceX - movePlaceX == 1 & movePlaceY - movePieceY == 1:
-              if positionOfCheckers[movePlaceY + 1, movePlaceX - 1] == 0:
+            if movePieceX - movePlaceX == 1 & movePlaceY - movePieceY == 1 and positionOfCheckers[movePlaceY + 1, movePlaceX - 1] == 0:
 
-                updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 2, -1, 1)
+              updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 2, -1, 1)
 
-            elif movePlaceX - movePieceX == 1 & movePlaceY - movePieceY == 1:
-              if positionOfCheckers[movePlaceY + 1, movePlaceX + 1] == 0:
-
-                updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 2, 1, 1)
+            elif movePlaceX - movePieceX == 1 & movePlaceY - movePieceY == 1 and positionOfCheckers[movePlaceY + 1, movePlaceX + 1] == 0:
+              updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 2, 1, 1)
               
     #if the piece is a king
     elif positionOfCheckers[movePieceY, movePieceX] == 4:
