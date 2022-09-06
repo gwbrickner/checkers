@@ -18,7 +18,8 @@ print(printCheckerBoard(getPositionOfCheckers()))
 
 while True:
   tmialo()
+  checkForKing()
   print(printCheckerBoard(getPositionOfCheckers()))
   tmialx()
+  checkForKing()
   print(printCheckerBoard(getPositionOfCheckers()))
-

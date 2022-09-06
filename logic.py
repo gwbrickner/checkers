@@ -1,4 +1,3 @@
-
 import numpy as np
 
 positionOfCheckers = np.array([
@@ -89,11 +88,9 @@ def tmialo():
 
         # else if the target piece is holding an enemy piece
         elif positionOfCheckers[movePlaceY, movePlaceX] == 2:
-            print('logic for target square holding enemy piece = reached')
             # making sure its moving in a legal direction, up and left
             if movePieceX - movePlaceX == 1 & movePieceY - movePlaceY == 1:
               if positionOfCheckers[movePlaceY - 1, movePlaceX - 1] == 0:
-                print('graeson = brain damage')
                 updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 1, -1, -1)
 
             # making sure its moving in a legal direction, up and right
@@ -101,8 +98,6 @@ def tmialo():
               if positionOfCheckers[movePlaceY - 1, movePlaceX + 1] == 0:
                 print('graeson = brain damage 2')
                 updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 1, 1, -1)
-            else:
-              print('graeson = retarb')
               
     elif positionOfCheckers[movePieceY, movePieceX] == 3:
       
@@ -186,3 +181,14 @@ def kingLogicReg(movePieceX, movePieceY, movePlaceX, movePlaceY, pieceType):
   if movePieceX - movePlaceX == 1 & movePlaceY - movePieceY == 1 or movePlaceX - movePieceX == 1 & movePieceY - movePlaceY == 1 or movePlaceX - movePieceX == 1 & movePlaceY - movePieceY == 1 or movePlaceX - movePieceX == 1 & movePieceY - movePlaceY == 1:
     updatePieceReg(movePieceX, movePieceY, movePlaceX, movePlaceY, pieceType)
 
+def checkForKing():
+
+  for x in range(8):
+    pointerPieceX = x
+    
+    if positionOfCheckers[0, pointerPieceX] == 1:
+      positionOfCheckers[0, pointerPieceX] = 3
+    elif positionOfCheckers[7, pointerPieceX] == 2:
+      positionOfCheckers[7, pointerPieceX] = 4
+
+  return positionOfCheckers
