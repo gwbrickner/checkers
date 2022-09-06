@@ -2,8 +2,8 @@
 import numpy as np
 
 positionOfCheckers = np.array([
-    [0, 0, 0, 2, 0, 2, 0, 2],
-    [2, 0, 1, 0, 2, 0, 2, 0],
+    [0, 2, 0, 2, 0, 2, 0, 2],
+    [2, 0, 2, 0, 2, 0, 2, 0],
     [0, 2, 0, 2, 0, 2, 0, 2],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -89,21 +89,37 @@ def tmialo():
 
         # else if the target piece is holding an enemy piece
         elif positionOfCheckers[movePlaceY, movePlaceX] == 2:
-
+            print('logic for target square holding enemy piece = reached')
             # making sure its moving in a legal direction, up and left
-            if movePieceX - movePlaceX == 1 & movePieceY - movePlaceY == 1 & positionOfCheckers[movePlaceY - 1, movePlaceX - 1] == 0:
-                  
-              updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 1, -1, -1)
+            if movePieceX - movePlaceX == 1 & movePieceY - movePlaceY == 1:
+              if positionOfCheckers[movePlaceY - 1, movePlaceX - 1] == 0:
+                print('graeson = brain damage')
+                updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 1, -1, -1)
 
             # making sure its moving in a legal direction, up and right
-            elif movePlaceX - movePieceX == 1 & movePieceY - movePlaceY == 1 & positionOfCheckers[movePlaceY - 1, movePlaceX + 1] == 0:
-                
-              updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 1, 1, -1)
+            elif movePlaceX - movePieceX == 1 & movePieceY - movePlaceY == 1:   
+              if positionOfCheckers[movePlaceY - 1, movePlaceX + 1] == 0:
+                print('graeson = brain damage 2')
+                updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 1, 1, -1)
+            else:
+              print('graeson = retarb')
+              
+    elif positionOfCheckers[movePieceY, movePieceX] == 3:
+      
+      #no matter what direction if its legal it can move
+      if positionOfCheckers[movePlaceY, movePlaceX] == 0:
+        
+        kingLogicReg(movePieceX, movePieceY, movePlaceX, movePlaceY, 3)
+      #if enemy piece, i hate this code so bad
+      elif positionOfCheckers[movePlaceY, movePlaceX] == 2 or positionOfCheckers[movePlaceY, movePlaceX] == 4:
+        
+        movementDirX = movePlaceX - movePieceX
+        movementDirY = movePlaceY - movePieceY
+        updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 3, movementDirX, movementDirY)
 
     else:
       print("Invalid square, please retry.")
       tmialo()
-    checkForKing(movePlaceX, movePlaceY, 3)
     return positionOfCheckers
 
 # take input and logic "x"
@@ -134,13 +150,15 @@ def tmialx():
         elif positionOfCheckers[movePlaceY, movePlaceX] == 1 or positionOfCheckers[movePlaceY, movePlaceX] == 3:
 
             # making sure its moving in a legal direction
-            if movePieceX - movePlaceX == 1 & movePlaceY - movePieceY == 1 & positionOfCheckers[movePlaceY + 1, movePlaceX - 1] == 0:
+            if movePieceX - movePlaceX == 1 & movePlaceY - movePieceY == 1:
+              if positionOfCheckers[movePlaceY + 1, movePlaceX - 1] == 0:
 
-              updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 2, -1, 1)
+                updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 2, -1, 1)
 
-            elif movePlaceX - movePieceX == 1 & movePlaceY - movePieceY == 1 & positionOfCheckers[movePlaceY + 1, movePlaceX + 1] == 0:
+            elif movePlaceX - movePieceX == 1 & movePlaceY - movePieceY == 1:
+              if positionOfCheckers[movePlaceY + 1, movePlaceX + 1] == 0:
 
-              updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 2, 1, 1)
+                updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 2, 1, 1)
               
     #if the piece is a king
     elif positionOfCheckers[movePieceY, movePieceX] == 4:
@@ -150,17 +168,17 @@ def tmialx():
         
         kingLogicReg(movePieceX, movePieceY, movePlaceX, movePlaceY, 4)
       #if enemy piece, i hate this code so bad
-      elif positionOfCheckers[movePlaceY, movePlaceX] == 1:
+      elif positionOfCheckers[movePlaceY, movePlaceX] == 1 or positionOfCheckers[movePlaceY, movePlaceX] == 3:
         
         movementDirX = movePlaceX - movePieceX
         movementDirY = movePlaceY - movePieceY
         updatePieceCap(movePieceX, movePieceY, movePlaceX, movePlaceY, 4, movementDirX, movementDirY)
-
+  
         
     else:
       print("Invalid square, please retry.")
       tmialx()
-    checkForKing(movePlaceX, movePlaceY, 4)
+
     return positionOfCheckers
 
 
@@ -168,11 +186,3 @@ def kingLogicReg(movePieceX, movePieceY, movePlaceX, movePlaceY, pieceType):
   if movePieceX - movePlaceX == 1 & movePlaceY - movePieceY == 1 or movePlaceX - movePieceX == 1 & movePieceY - movePlaceY == 1 or movePlaceX - movePieceX == 1 & movePlaceY - movePieceY == 1 or movePlaceX - movePieceX == 1 & movePieceY - movePlaceY == 1:
     updatePieceReg(movePieceX, movePieceY, movePlaceX, movePlaceY, pieceType)
 
-def checkForKing(movePlaceX, movePlaceY, pieceType):
-  if pieceType == 1:
-    if positionOfCheckers[movePlaceY] == 0:
-      positionOfCheckers[movePlaceY, movePlaceX] == 3
-    
-  if pieceType == 2:
-    if positionOfCheckers[movePlaceY] == 7:
-      positionOfCheckers[movePlaceY, movePlaceX] == 4
